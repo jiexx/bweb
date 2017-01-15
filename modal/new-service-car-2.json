@@ -1,0 +1,34 @@
+{
+	"DetailMain": {
+		"sql": "INSERT INTO traveluserdb.tab_services ( UserID, ServiceTypeID, ServiceName, PrimaryPrice, Unit, PriceType, ServiceTime, ServiceOutTimePrice, IncMileage, ExMileagePrice, FreeForDelay, WaitOutTimePrice, Description, ServiceStatus, ServiceMethod, UpdateDate, CreateDate ) VALUES ( ?,?,?,?,?,?,?,?,?,?, ?,?,?,?,?,NOW(),NOW() )",
+		"params": [
+			"userID",
+			"serviceTypeID",
+			"serviceName",
+			"primaryPrice",
+			"unit",
+			"priceType",
+			"serviceTime",
+			"serviceOutTimePrice",
+			"incMileage",
+			"exMileagePrice",
+			"freeForDelay",
+			"serviceStatus",
+			"waitOutTimePrice",
+			"description",
+			"serviceMethod"
+		],
+		"Pictures": {
+			"sql": "INSERT INTO traveluserdb.tab_facilitypictures ( PictureID, PicURL, IsCover, PicType ) VALUES (?,?,?,1)",
+			"params": [
+				"insertId",
+				"picURL",
+				"cover"
+			],
+			"files": [
+				"picURL"
+			],
+			"findkey": "insertId"
+		}
+	}
+}

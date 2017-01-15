@@ -1,0 +1,34 @@
+{
+		"paypal":{
+		},
+		"alipay":{
+			"gateway": "https://mapi.alipay.com/gateway.do?",
+			"notify_url": "http://123.59.144.169:8888/notify",
+			"key": "w8dmwl2awivsqjv7f3m1chynw49ya8yv",
+			"seller_id": "2088612188470577",
+			"partner": "2088612188470577"
+		},
+		"rongtalk":{
+			"key": "25wehl3u255yw",
+			"url": "http://api.cn.ronghub.com/user/getToken.json"
+		},
+		"sms": {
+			"url": "https://sms.yunpian.com/v2/sms/single_send.json",
+			"key": "9cb31422e774d4fef8a8b767a7862646"
+		},
+		"db": {
+			"host" : "123.59.144.47",
+			"user" : "root",
+			"password": "zl_2wsx!QAZ",
+			"connectionLimit": 500
+		},
+		"fdfs": {
+			"host": "123.59.144.47",
+			"port": 22122
+			"timeout": 10000,
+			"charset": "utf8"
+		},
+		"imghost": {
+			"host": "123.59.144.47",
+		}
+}

@@ -1,0 +1,14 @@
+{
+	"Travelogue": {
+		"sql": "SELECT * FROM traveluserdb.`vw_/travelogue/detail` where articleID= ?  LIMIT 1",
+		"params": [
+			"articleID"
+		]
+	},
+	"TravelogueDetail": {
+		"sql": "SELECT articleID, articleDetailID AS articleDetailID, label AS label, picURL AS picURL, content AS content, DAY AS DAY FROM traveluserdb.tab_travelarticledetail where articleID=? ORDER BY CreateDate ASC, articleDetailID ASC",
+		"params": [
+			"articleID"
+		]
+	}
+}
