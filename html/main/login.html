@@ -1,0 +1,104 @@
+<form class="modal fade" id="homeLogin" tabindex="-1" novalidate>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="panel-body">
+                <!-- Tab nav -->
+                <ul class="nav nav-justified">
+                    <li><a href="#tab1" role="tab" data-toggle="tab" class="h2 active">登录</a></li>
+                    <li><a href="#tab2" role="tab" data-toggle="tab" class="h2">手机注册</a></li>
+                </ul>
+            </div>
+            <!-- Begin # Login Form -->
+            <div class="panel-body" id="login-form">
+                <div class="panel-body">
+                    <p id="message" class="h5 text-danger">&nbsp;</p>
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- 账号密码登录 -->
+                    <div class="tab-pane active" id="tab1">
+                        <div class="form ">
+                            <div class="panel-body">
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" name="loginName" placeholder="请输入手机号" required>
+                                    <span class="glyphicon glyphicon-user form-control-feedback " aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group has-feedback">
+                                    <input type="password" class="form-control" name="loginPass" placeholder="请输入密码" required>
+                                    <span class="glyphicon glyphicon-lock form-control-feedback " aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <!--<div class="checkbox">
+                            <label><input type="checkbox"> 记住账户</label>
+                            <label><input type="checkbox"> 记住密码</label>
+                            <a href="javascript:void(0);" id="login_lost_btn" >忘记密码</a>
+                            </div>-->
+                            <div class="footer panel-body">
+                                <button type="submit" class="btn btn-block btn-warning btn-lg">登 录</button>
+                            </div>
+                            <div class="footer panel-body">
+                                <a href="#tab3" role="tab" data-toggle="tab" class="btn btn-link">忘记密码？</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 账号密码登录结束 -->
+
+                    <!-- 电话登录 -->
+                    <div class="tab-pane" id="tab2">
+                        <div class="form">
+                            <div class="panel-body">
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" name="loginName" placeholder="请输入手机号" required>
+                                    <span class="glyphicon glyphicon-user form-control-feedback " aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group has-feedback">
+                                    <input type="password" class="form-control" name="loginPass" placeholder="请输入密码" required>
+                                    <span class="glyphicon glyphicon-lock form-control-feedback " aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <input type="text" name="captcha" class="form-control" placeholder="请输入验证码" required>
+                                    <div class="input-group-btn getCaptcha"><span class="btn btn-default glyphicon glyphicon-refresh"></span></div>
+                                </div>
+                            </div>
+                            <div class="footer panel-body">
+                                <button type="submit" class="btn btn-block btn-warning btn-lg">注 册</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 电话登录结束 -->
+                    <!-- 电话登录 -->
+                    <div role="tabpanel" class="tab-pane" id="tab3">
+                        <div class="form">
+                            <div class="panel-body">
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" name="loginName" placeholder="请输入手机号" required>
+                                    <span class="glyphicon glyphicon-user form-control-feedback " aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <input type="text" name="captcha" class="form-control" placeholder="请输入验证码" required>
+                                    <div class="input-group-btn getCaptcha" ><i class="btn btn-default  glyphicon glyphicon-refresh"></i></div>
+                                </div>
+                            </div>
+                            <div class="footer panel-body">
+                                <button type="submit" class="btn btn-block btn-warning btn-lg">登 录</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 电话登录结束 -->
+                </div>
+
+            </div>
+            <!-- End # Login Form -->
+
+        </div>
+    </div>
+</form>
+<!-- END # MODAL LOGIN-->

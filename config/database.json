@@ -18,12 +18,13 @@
 		"id": "bigint auto_increment primary key",
 		"type": "varchar(50)",
 		"creator":"bigint",
+		"home":"bool"
 	},
 	"elements":{
 		"id": "bigint auto_increment primary key",
 		"name": "varchar(50)",
 		"tags": "varchar(200)"
-		"type": "bigint",
+		"class": "varchar(50)",
 		"creator":"bigint",
 		"AUTO_INCREMENT": "0"
 	},

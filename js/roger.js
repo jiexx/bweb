@@ -148,55 +148,7 @@ $(function () {
 			return window._rogerRouter[path];
 		},
 		rogerLocation: function(url, json) {
-			if(url.substring(0,2)=='#/'){
-				var path = url.indexOf("?") > 0 ? url.substring(0, url.indexOf("?")): url;
-				var router = $.rogerGetRouter(path);
-				if (router) {
-					if(router.view) {
-						$._rogerSetLocation(url);
-						$._RogerLoadView(
-							router.view,
-							$.rogerGetAppContainer(),
-							router.rootrest,
-							$.rogerGetURLJsonParams(),
-							function(respJSON, realView) {
-								realView._RogerReloadRouters();
-								router.ctrl(respJSON, realView);
-							}
-						);
-					}else if(router.fragment && (router.init || json) ) {
-						$._rogerSetLocation(url);
-						var req = json ? json : router.init();
-						$._RogerLoadViewByJSON(
-							router.fragment,
-							$.rogerGetAppContainer(),
-							req,
-							function(respJSON, realView) {
-								realView._RogerReloadRouters()
-								realView._rogerBindPointer(respJSON,function(d, onFinish){
-									$.rogerRefresh(d);
-								});
-								router.ctrl(respJSON, realView);
-							}
-						)
-					}else if(router.fragment && !router.init && router.rootrest && !json) {
-                        $._rogerSetLocation(url);
-                        $._RogerLoadView(
-                            router.fragment,
-                            $.rogerGetAppContainer(),
-                            router.rootrest,
-                            $.rogerGetURLJsonParams(),
-                            function(respJSON, realView) {
-                                realView._RogerReloadRouters();
-                                realView._rogerBindPointer(respJSON,function(d, onFinish){
-                                    $.rogerRefresh(d);
-                                });
-                                router.ctrl(respJSON, realView);
-                            }
-                        );
-                    }
-				}
-			}
+			$.rogerTrigger($.rogerGetAppContainer(), url, json);
 		},
         rogerTrigger: function(container, url, json ) {
             if(url.substring(0,2)=='#/') {
@@ -207,34 +159,44 @@ $(function () {
 						$._rogerSetLocation(url);
 						$._RogerLoadView(
 							router.view,
-							$(container),
+							container,
 							router.rootrest,
 							json,
 							function(respJSON, realView) {
 								realView._RogerReloadRouters();
+                                realView.rogerCropImages();
 								router.ctrl(respJSON, realView);
 							}
 						);
-					}else if(router.fragment && (router.init)){
-						var parcel = {router:router, container:$(container), url:url, data:router.init(json)};
-						$._rogerLoadFragment(parcel, function(d, onFinish, parcel){
-							$._rogerLoadFragment(parcel, onFinish)
-						});
-					}else if(router.fragment && !router.init && router.rootrest && json) {
-                        $._RogerLoadView(
-                            router.fragment,
-                            $(container),
-                            router.rootrest,
-                            json,
-                            function(respJSON, realView) {
+					}else if(router.fragment){
+						if(router.init) {
+                            var parcel = {router:router, container:container, url:url, data:router.init(json)};
+                            $._rogerLoadFragment(parcel, function(d, onFinish, parcel){
+                                $._rogerLoadFragment(parcel, onFinish)
+                            });
+						}else if(router.rootrest && json){
+                            $._RogerLoadView(
+                                router.fragment,
+                                container,
+                                router.rootrest,
+                                json,
+                                function(respJSON, realView) {
+                                    realView._RogerReloadRouters();
+                                    realView.rogerCropImages();
+                                    realView._rogerBindPointer(respJSON,function(d, onFinish){
+                                        $.rogerRefresh(d);
+                                    });
+                                    router.ctrl(respJSON, realView);
+                                }
+                            );
+						}else if(!router.rootrest) {
+                            container.rogerReloadFile(router.fragment, function (realView) {
                                 realView._RogerReloadRouters();
-                                realView._rogerBindPointer(respJSON,function(d, onFinish){
-                                    $.rogerRefresh(d);
-                                });
-                                router.ctrl(respJSON, realView);
-                            }
-                        );
-                    }
+                                realView.rogerCropImages();
+                                router.ctrl(null, realView);
+                            });
+						}
+					}
                 }
             }
         },
@@ -245,6 +207,7 @@ $(function () {
 				parcel.data,
 				function(respJSON, realView) {
 					realView._RogerReloadRouters();
+                    realView.rogerCropImages();
 					realView._rogerBindPointer(respJSON, onFinish, parcel);
 					parcel.router.ctrl(respJSON, realView);
 				}
