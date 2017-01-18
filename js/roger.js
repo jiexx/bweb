@@ -7,9 +7,7 @@ $(function () {
 		options.async = true;
 	});
     $(window).on("popstate", function(e) {
-        if(e.originalEvent.state === null) {
-            $.rogerLocation('#/');
-        } else {
+        if(e.originalEvent.state != null) {
             $.rogerLocation(e.originalEvent.state.url);
         }
     });
@@ -232,65 +230,16 @@ $(function () {
 			}
 			return JSON.parse($.cookie("roger"));
 		},
+        rogerSetLoginUser: function(user){
+            $.removeCookie("roger");
+            $.cookie("roger", user, {expires: 10});
+        },
         rogerIsLogined: function(){
             return $.rogerGetLoginUser() && $.rogerGetLoginUser().UserID >0;
-        },
-		rogerShowLogin: function(){
-			$(window._rogerLoginForm).modal('show');
-		},
-        rogerHideLogin: function(){
-            $(window._rogerLoginForm).modal('hide');
-            //$(loginFormID).modal({ show: false});
         },
         rogerLogout: function(){
             $.removeCookie("roger");
         },
-		rogerLogin: function(loginFormID, reqURL) {
-            $('#message').html('');
-        	var user = $.rogerGetLoginUser();
-        	if( !user || !user.UserID ) {
-                $(loginFormID).rogerSubmit(reqURL, function (respJSON) {
-                	if (!respJSON.error) {
-                        //window.open(redirectURL,'_blank');
-                        //window.location = '/dashboard.html?UserID='+respJSON[0].UserID;
-                        respJSON.message = JSON.parse(respJSON.message);
-                        if(respJSON.message && respJSON.message.UserID > 0) {
-                            $.removeCookie("roger");
-                            $.cookie("roger", JSON.stringify(respJSON.message), {expires: 10});
-                            $.rogerRefresh();
-                        }
-                    }else {
-                    	$('#message').html(respJSON.message);
-					}
-                });
-                $('.getCaptcha').rogerOnceClick(null, function () {
-                	var i = parseInt($('.getCaptcha span')[0].innerHTML);
-                	if(i>0) {
-                        $('#message').html("请等待"+(i)+"秒再获取验证码");
-                		return;
-					}
-                    var counter = 60;
-                    var inter = setInterval(function() {
-                        if (counter == 60) {
-                            var phone = $('#tab2 input[name="loginName"]')[0].value;
-                            $.rogerPost('/sms/get', {mobile: phone}, function (respJSON) {
-                                $('#message').html(respJSON.message);
-                            });
-                            $('.getCaptcha').html('').html('<span class="btn btn-default disabled">60</span>');
-                        }
-                        counter--;
-                        if (counter >= 0) {
-                            $('.getCaptcha').html('').html('<span class="btn btn-default disabled">'+counter+'</span>');
-                        }
-                        if (counter <= 0) {
-                            $('.getCaptcha').html('').html('<span class="btn btn-default glyphicon glyphicon-refresh"></span>');
-                            clearInterval(inter);
-                        }
-                    }, 1000);
-                })
-            }
-			window._rogerLoginForm = loginFormID;
-		},
 		rogerRefresh: function(reqJSON) {
 			$.rogerLocation($._rogerGetLocation(),reqJSON);
 		},
