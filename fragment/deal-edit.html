@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            名称
+        </div>
+        <div class="col-md-11">
+            <input type="text" class="form-control"  value="${$data.DealInfo.name}"  data-value="/DealInfo/name" placeholder="不能超过24个字符">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            标签
+        </div>
+        <div class="col-md-9 row">
+            <ul class="label-base">
+                {{each $data.DealInfo.Labels}}
+                <li><input type="text" value="${$data.DealInfo.Labels[$index]}" data-value="/DealInfo/Labels/${$index}" ><a class="glyphicon glyphicon-remove-circle" data-op="remove"  data-pointer="/DealInfo/Labels/${$index}"></a></li>
+                {{/each}}
+                <li><div class="addItemBtn" data-op="change" data-pointer="/DealInfo/Labels-" data-action="createLabel"> + </div></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            价格
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control"   value="${$data.DealInfo.price}"  data-value="/DealInfo/price" placeholder="请输入价格"> 元/人
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 ">相册上传:</div>
+        <div class="col-md-9 row" >
+            {{each $data.DealInfo.Picture}}
+            <div class="col-md-3">
+                <div class="imgBox">
+                    <img name="needPrefix" src="${$data.DealInfo.Picture[$index]}">
+                    <a class="glyphicon glyphicon-remove-circle" data-op="remove" data-pointer="/PlanInfo/Picture/${$index}"></a>
+                </div>
+            </div>
+            {{/each}}
+            <div class="col-md-3" data-op="toggle" data-pointer="/DealInfo/Picture" data-limit="8">
+                <div class="imgBox addImg" data-op="change" data-pointer="/DealInfo/Picture/-" data-action="image">+</div>
+            </div>
+        </div>
+    </div>
+    <div class="row btn-group">
+        <a class="btn btn-warning  " href="javascript:void(0)" data-op="change" data-pointer="/PlanInfo/PlanShort/-" data-action="createPicture">添加图片</a>
+        <a class="btn btn-warning  " href="javascript:void(0)" data-op="change" data-pointer="/PlanInfo/PlanShort/-" data-action="createDescription">添加描述</a>
+    </div>
+    <div class="clearfix">
+        {{each $data.DealInfo.Description}}
+        {{if pic}}
+        <div class="col-md-5">
+            <div class="imgBox">
+                <img name="needPrefix" src="${pic}">
+                <a class="glyphicon glyphicon-remove-circle" data-op="remove" data-pointer="/DealInfo/Description/${$index}/pic"></a>
+            </div>
+        </div>
+        {{/if}}
+        {{if enable}}
+        <div class="col-md-5" data-op="toggle" data-pointer="/DealInfo/Description/${$index}/pic" data-limit="1">
+            <div class="imgBox addImg" data-op="change" data-pointer="/DealInfo/Description/${$index}/pic" data-action="image">+</div>
+        </div>
+        {{/if}}
+
+        {{if description}}
+        <div class="col-md-5 introduction">
+            <textarea name="" rows="10"   data-value="/DealInfo/PlanShort/${$index}/description" placeholder="描述">${ description}</textarea>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+</div>

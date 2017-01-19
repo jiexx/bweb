@@ -1,3 +1,17 @@
 .btn-warning{
   background-color: #fa703e;
 }
+.imgBox{width:100%; height: 200px;display: inline-block; vertical-align: middle; position: relative;}
+.imgBox .glyphicon-remove-circle{position: absolute; font-size: 16px; color:#00b8ee; cursor: pointer; top: -8px; right: -8px; }
+.imgBox.addImg{border:1px dashed #ccc; font-size: 60px; text-align: center; color:#CCC; line-height: 200px;}
+.imgBox img{width:100%; height: 100%; }
+
+.label-base input{outline: none;border: none!important;background: none;margin: 0;padding: 0;}
+.label-base{width:70%;}
+.label-base li{ display: inline-block; width:100px; height: 28px; background: #00b8ee; line-height: 28px;  color:#FFF; text-align: center; font-size: 14px; margin:10px 5px 0; position: relative; -webkit-border-radius: 15px; -moz-border-radius: 15px; -ms-border-radius: 15px; -o-border-radius: 15px; border-radius: 15px; }
+.label-base li:after{content:'/'; position: absolute; right:-10px; color:#000;}
+.label-base li:last-child:after{content:''; position: absolute; right:-10px; color:#000;}
+.label-base li input{text-align: center; width:70%!important;}
+.label-base li input::-webkit-input-placeholder{color:#ddd;}
+.label-base li .glyphicon-remove-circle{float: right; font-size: 14px; color: #fff; margin-left: -6px;}
+.label-base li>.addItemBtn{width:100%; height: 100%; background-color: #FFF; border-radius: 0; border:1px dotted #00b8ee; color:#00b8ee; cursor: pointer; }

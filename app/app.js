@@ -5,8 +5,8 @@
             $('#log').html('').html('<a href="#/login">登陆</a>');
         }else {
             var user = $.rogerGetLoginUser();
-            $('#log').html('');
-            $.rogerTrigger($('#login'), '#/opts');
+            $('#log').html('').html('<a href="javascript:void(0)"><img src="'+user.pic+'" class="img-circle" sytle="width:60px"></a>');
+            $.rogerTrigger($('#opt'), '#/opts');
         }
     };
     var ctrlLogin = function(response, realView) {
@@ -48,21 +48,67 @@
         });
     };
     var ctrlLoginOpt = function(response, realView) {
-        $('#log').html('<a href="#" class="trigger"><img src="'+user.pic+'" class="img-circle" sytle="width:60px"></img></a>');
-        $('#log>.trigger').popover({
+        $('#log > a').popover({
             html : true,
             content: function() {
-                return $("#opts").html();
+                return $("#user-opts").html();
             }
         });
     };
+    var initDealNew = function(params){
+        var usr =$.rogerGetLoginUser();
+        return {
+            DealInfo:{
+                name:'', creator_id:usr.id, price:0,show:0,
+                Picture: [],
+                Label:[],
+                Description: []
+            },
+            IMGHOST:$.rogerImgHost()
+        };
+    };
+    var ctrlDealNew = function(Deal, realView) {
+        $('img[name="needPrefix"]').each(function () {
+            var src = $(this).attr('src');
+            if (src.indexOf('group1') > -1) {
+                $(this).attr('src', Deal.IMGHOST + src);
+            }
+        })
+        Deal.createPicture = function (Deal, Description) {
+            Description.push({description: null, pic: null, enable: true});
+            $.rogerRefresh(Plan);
+        };
+        Deal.createDescription = function (Deal, PlanShort) {
+            Description.push({description: 'desc', pic: null, enable: false});
+            $.rogerRefresh(Plan);
+        };
 
+
+        $('#save').rogerOnceClick(Deal, function (e) {
+            if (!Deal.DealInfo.id) {
+                var data = {DealInfo: e.data.DealInfo};
+                $.rogerPost('/new/deal', data, function (respJSON) {
+                    $.rogerNotice({Message: '发布成功'});
+                });
+            } else {
+                var data = {PlanInfo: e.data.PlanInfo};
+                data.PlanInfo.Summary._PlanLabels = data.PlanInfo.Summary.PlanLabels.join();
+                data.PlanInfo.PlanPriceBase = data.PlanInfo.AdultPrice;
+                $.rogerPost('/delete/deal', {PlanID: data.PlanInfo.PlanID}, function (respJSON) {
+                    $.rogerPost('/new/deal', data, function (respJSON) {
+                        $.rogerNotice({Message: '发布成功'});
+                    });
+                });
+            }
+        });
+    }
 
     $.rogerRouter({
         '#/':  							    {view:'home.html',										rootrest:'/home',						ctrl: ctrlHome},
         '#/login':							{fragment:'login.html',									                     					ctrl: ctrlLogin},
         '#/opts':						    {fragment:'user-opts.html',							  	                    					ctrl: ctrlLoginOpt},
-
+        '#/dealnew':                      {fragment: 'fragment/deal-edit.html',                 init: initDealNew,                      ctrl: ctrlDealNew},
+        '#/dealedit':                     {fragment: 'fragment/deal-edit.html',                 rootrest:'/deal',                     ctrl: ctrlDealNew},
     });
 
 })();

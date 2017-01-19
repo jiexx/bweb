@@ -10,40 +10,45 @@
 	"pictures":{
 		"id": "bigint auto_increment primary key",
 		"pic": "varchar(50)",
-		"key": "bigint",
-		"creator":"bigint",
+		"creator_id":"bigint",
 		"AUTO_INCREMENT": 0
 	},
 	"class": {
 		"id": "bigint auto_increment primary key",
 		"type": "varchar(50)",
-		"creator":"bigint",
+		"creator_id":"bigint",
 		"home":"bool"
 	},
-	"elements":{
+	"labels":{
 		"id": "bigint auto_increment primary key",
 		"name": "varchar(50)",
-		"tags": "varchar(200)"
+		"tags": "varchar(200)",
 		"class": "varchar(50)",
 		"creator":"bigint",
 		"AUTO_INCREMENT": "0"
 	},
-	"product_element":{
+	"product_label":{
 		"product_id": "bigint",
 		"element_id": "bigint"
+	},
+	"product_description":{
+		"product_id": "bigint",
+		"description": "text",
+		"picture_id": "bigint"
 	},
 	"products":{
 		"id": "bigint auto_increment primary key",
 		"name": "varchar(50)",
-		"pic": "varchar(50)",
+		"picture_id": "bigint",
 		"price": "float",
-		"creator":"bigint",
+		"creator_id":"bigint",
+		"show":"int",
 		"AUTO_INCREMENT": "2^60"
 	},
 	"bid":{
 		"id": "bigint auto_increment primary key",
-		"seller":"bigint",
-		"buyer":"bigint",
+		"seller_id":"bigint",
+		"buyer_id":"bigint",
 		"words":"varchar(1024)",
 		"AUTO_INCREMENT": "2^62"
 	},
@@ -51,8 +56,8 @@
 		"id": "bigint auto_increment primary key",
 		"name": "varchar(50)",
 		"price": "float",
-		"seller":"bigint",
-		"buyer":"bigint",
+		"seller_id":"bigint",
+		"buyer_id":"bigint",
 		"state":"int"
-	},
+	}
 }
