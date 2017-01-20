@@ -55,6 +55,9 @@
             }
         });
     };
+    var ctrlDealList = function(response, realView) {
+
+    };
     var initDealNew = function(params){
         var usr =$.rogerGetLoginUser();
         return {
@@ -101,14 +104,15 @@
                 });
             }
         });
-    }
+    };
 
     $.rogerRouter({
-        '#/':  							    {view:'home.html',										rootrest:'/home',						ctrl: ctrlHome},
-        '#/login':							{fragment:'login.html',									                     					ctrl: ctrlLogin},
-        '#/opts':						    {fragment:'user-opts.html',							  	                    					ctrl: ctrlLoginOpt},
+        '#/':  							    {view:'home.html',										rootrest:'/home',					   ctrl: ctrlHome},
+        '#/login':							{fragment:'login.html',									                     			       ctrl: ctrlLogin},
+        '#/opts':						    {fragment:'user-opts.html',							  	                    				   ctrl: ctrlLoginOpt},
         '#/dealnew':                      {fragment: 'fragment/deal-edit.html',                 init: initDealNew,                      ctrl: ctrlDealNew},
-        '#/dealedit':                     {fragment: 'fragment/deal-edit.html',                 rootrest:'/deal',                     ctrl: ctrlDealNew},
+        '#/dealedit':                     {fragment: 'fragment/deal-edit.html',                 rootrest:'/deal/edit',              ctrl: ctrlDealNew},
+        '#/deallist':                     {view: 'deal-list.html',                                rootrest:'/deal/list',               ctrl: ctrlDealList}
     });
 
 })();
